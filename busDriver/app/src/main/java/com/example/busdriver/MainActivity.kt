@@ -26,23 +26,30 @@ class MainActivity : AppCompatActivity() {
 
         try {
             mqttClient.setCallback(::onReceived)
-            mqttClient.connect(arrayOf<String>("eyeson/#"))
+            mqttClient.connect(arrayOf<String>("eyeson/bus"))
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
     fun publish(data: String) {
-        //mqttClient 의 publish기능의의 메소드를 호출
+        //mqttClient 의 publish 기능의 메소드를 호출
         mqttClient.publish("mydata/function", data)
     }
 
     fun onReceived(topic: String, message: MqttMessage) {
         val msg = String(message.payload)
-        var resId = findViewById<ImageView>()
-        if(msg.equals("riding")){
+        var resId = findViewById<ImageView>(R.id.imageIcon)
+        print(msg)
+        if(msg.equals("reservation")){
+            print(2)
             resId.setImageResource(R.drawable.disabled_person1)
-
+        }
+        else if(msg.equals("complete")){
+            resId.setImageResource(R.drawable.disabled_person2)
+        }
+        else{
+            resId.setImageResource(R.drawable.disabled_person2) // 이미지 바꿔야 함
         }
     }
 }
