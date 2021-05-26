@@ -17,13 +17,19 @@
     android:layout_height="wrap_content"
     android:layout_weight="4"
     />
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:text="버스정류장"
-        android:layout_gravity="center_horizontal"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
+        android:textSize="35sp" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

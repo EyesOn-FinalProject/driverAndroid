@@ -9,6 +9,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import com.example.busdriver.classFile.MyMqtt
 import org.eclipse.paho.android.service.MqttAndroidClient
@@ -39,17 +40,23 @@ class MainActivity : AppCompatActivity() {
 
     fun onReceived(topic: String, message: MqttMessage) {
         val msg = String(message.payload)
-        var resId = findViewById<ImageView>(R.id.imageIcon)
+        val msgList = msg.split("/")
+        val resId = findViewById<ImageView>(R.id.imageIcon)
+        val tvId = findViewById<TextView>(R.id.textView)
         print(msg)
-        if(msg.equals("reservation")){
+        if(msgList[0].equals("reservation")){
             print(2)
             resId.setImageResource(R.drawable.disabled_person1)
+            tvId.setText("해당 정류장 : \n" + msgList[1]) // 버스 정류장은 "어디"이다.
         }
-        else if(msg.equals("complete")){
+        else if(msgList[0].equals("complete")){
             resId.setImageResource(R.drawable.disabled_person2)
+            tvId.setText("이번 정거장에서 \n 하차합니다.")
+//            tvId.text = "해당 정류장 : " + msgList[1]
         }
         else{
             resId.setImageResource(R.drawable.disabled_person2) // 이미지 바꿔야 함
+            tvId.setText("감사합니다.")
         }
     }
 }
