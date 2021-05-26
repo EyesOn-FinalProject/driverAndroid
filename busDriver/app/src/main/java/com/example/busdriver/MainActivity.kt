@@ -46,17 +46,17 @@ class MainActivity : AppCompatActivity() {
         print(msg)
         if(msgList[0].equals("reservation")){
             print(2)
-            resId.setImageResource(R.drawable.disabled_person1)
-            tvId.setText("해당 정류장 : \n" + msgList[1]) // 버스 정류장은 "어디"이다.
+            resId.setImageResource(R.drawable.boarding)
+            tvId.setText("\n해당 정류장 : \n" + msgList[1]) // 버스 정류장은 "어디"이다.
         }
         else if(msgList[0].equals("complete")){
-            resId.setImageResource(R.drawable.disabled_person2)
-            tvId.setText("이번 정거장에서 \n 하차합니다.")
+            resId.setImageResource(R.drawable.stop)
+            tvId.setText("\n이번 정거장에서 \n 하차합니다.")
 //            tvId.text = "해당 정류장 : " + msgList[1]
         }
         else{
             resId.setImageResource(R.drawable.disabled_person2) // 이미지 바꿔야 함
-            tvId.setText("감사합니다.")
+            tvId.setText("\n감사합니다.")
         }
     }
 }
