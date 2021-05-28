@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         try {
             mqttClient.setCallback(::onReceived)
-            mqttClient.connect(arrayOf<String>("eyeson/bus"))
+            mqttClient.connect(arrayOf<String>("eyeson/#"))
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -44,19 +44,21 @@ class MainActivity : AppCompatActivity() {
         val resId = findViewById<ImageView>(R.id.imageIcon)
         val tvId = findViewById<TextView>(R.id.textView)
         print(msg)
-        if(msgList[0].equals("reservation")){
-            print(2)
-            resId.setImageResource(R.drawable.boarding)
-            tvId.setText("\n해당 정류장 : \n" + msgList[1]) // 버스 정류장은 "어디"이다.
-        }
-        else if(msgList[0].equals("complete")){
-            resId.setImageResource(R.drawable.stop)
-            tvId.setText("\n이번 정거장에서 \n 하차합니다.")
+        if(msgList[1] == "driver"){
+            if(msgList[2].equals("riding")){
+                print(2)
+                resId.setImageResource(R.drawable.boarding)
+                tvId.setText("\n해당 정류장 : \n" + msgList[3]) // 버스 정류장은 "어디"이다.
+            }
+            else if(msgList[2].equals("boarding")){
+                resId.setImageResource(R.drawable.stop)
+                tvId.setText("\n이번 정거장에서 \n 하차합니다.")
 //            tvId.text = "해당 정류장 : " + msgList[1]
-        }
-        else{
-            resId.setImageResource(R.drawable.disabled_person2) // 이미지 바꿔야 함
-            tvId.setText("\n감사합니다.")
+            }
+            else{
+                resId.setImageResource(R.drawable.happy_laugh) // 이미지 바꿔야 함
+                tvId.setText("\n기사님, 감사합니다.")
+            }
         }
     }
 }
